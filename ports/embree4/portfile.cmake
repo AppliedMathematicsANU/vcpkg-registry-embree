@@ -28,6 +28,39 @@ vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
         geometry-point        EMBREE_GEOMETRY_POINT
 )
 
+# Automatically select best ISA based on platform or VCPKG_CMAKE_CONFIGURE_OPTIONS.
+vcpkg_list(SET EXTRA_OPTIONS)
+if(VCPKG_TARGET_IS_EMSCRIPTEN)
+    # Disable incorrect ISA set for Emscripten and enable NEON which is supported and should provide decent performance.
+    # cf. [Using SIMD with WebAssembly](https://emscripten.org/docs/porting/simd.html#using-simd-with-webassembly)
+    vcpkg_list(APPEND EXTRA_OPTIONS
+        -DEMBREE_MAX_ISA:STRING=NONE
+
+        -DEMBREE_ISA_AVX:BOOL=OFF
+        -DEMBREE_ISA_AVX2:BOOL=OFF
+        -DEMBREE_ISA_AVX512:BOOL=OFF
+        -DEMBREE_ISA_SSE2:BOOL=OFF
+        -DEMBREE_ISA_SSE42:BOOL=OFF
+        -DEMBREE_ISA_NEON:BOOL=ON
+    )
+elseif(VCPKG_TARGET_IS_OSX AND (VCPKG_TARGET_ARCHITECTURE STREQUAL "arm64"))
+    # The best ISA for Apple arm64 is unique and unambiguous.
+    vcpkg_list(APPEND EXTRA_OPTIONS
+        -DEMBREE_MAX_ISA:STRING=NONE
+    )
+elseif(VCPKG_TARGET_IS_OSX AND (VCPKG_TARGET_ARCHITECTURE STREQUAL "x64") AND (VCPKG_LIBRARY_LINKAGE STREQUAL "static"))
+    # AppleClang >= 9.0 does not support selecting multiple ISAs.
+    # Let Embree select the best and unique one.
+    vcpkg_list(APPEND EXTRA_OPTIONS
+        -DEMBREE_MAX_ISA:STRING=DEFAULT
+    )
+else()
+    # Let Embree select the best ISA set for the targeted platform.
+    vcpkg_list(APPEND EXTRA_OPTIONS
+        -DEMBREE_MAX_ISA:STRING=NONE
+    )
+endif()
+
 if("tasking-tbb" IN_LIST FEATURES)
     set(EMBREE_TASKING_SYSTEM "TBB")
 else()
