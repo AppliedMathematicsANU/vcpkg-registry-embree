@@ -6,6 +6,7 @@ vcpkg_from_github(
     SHA512 5e77a033192ade6562b50d32c806c6a467580722898ca52ccfe002b51279314055e9c0e6c969651b0d03716d04ab249301340cd2790556a0dbfb8c296e8f0574
     HEAD_REF master
     PATCHES
+      001-downgrade-find-package-tbb.patch
       no-runtime-install.patch
 )
 
