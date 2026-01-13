@@ -1,0 +1,13 @@
+diff --git a/kernels/CMakeLists.txt b/kernels/CMakeLists.txt
+index b82780799..fb92e457f 100644
+--- a/kernels/CMakeLists.txt
++++ b/kernels/CMakeLists.txt
+@@ -351,7 +351,7 @@ IF (EMBREE_SYCL_SUPPORT)
+   TARGET_LINK_LIBRARIES(embree PRIVATE ${SYCL_LIB_NAME} ze_wrapper PUBLIC embree_sycl)
+ ENDIF()
+ 
+-#TARGET_LINK_LIBRARIES(embree PRIVATE ${EMBREE_LIBRARIES} sys math simd lexers tasking ${CMAKE_LINK_FLAGS_SYCL})  # FIXME: enable this line
++TARGET_LINK_LIBRARIES(embree PRIVATE ${EMBREE_LIBRARIES} sys math simd lexers tasking ${CMAKE_LINK_FLAGS_SYCL})
+ SET_TARGET_PROPERTIES(embree PROPERTIES OUTPUT_NAME ${EMBREE_LIBRARY_NAME})
+ target_include_directories(embree PUBLIC
+   $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../include>

@@ -7,6 +7,7 @@ vcpkg_from_github(
     HEAD_REF master
     PATCHES
       001-downgrade-find-package-tbb.patch
+      002-sys-libraries.patch
       no-runtime-install.patch
 )
 
