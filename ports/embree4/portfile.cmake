@@ -8,6 +8,7 @@ vcpkg_from_github(
     PATCHES
       001-downgrade-find-package-tbb.patch
       002-sys-libraries.patch
+      003-script-install-destination.patch
       no-runtime-install.patch
 )
 

@@ -1,0 +1,29 @@
+diff --git a/common/cmake/package.cmake b/common/cmake/package.cmake
+index daa4f49fa..6d1817b21 100644
+--- a/common/cmake/package.cmake
++++ b/common/cmake/package.cmake
+@@ -168,13 +168,13 @@ IF (EMBREE_ZIP_MODE)
+   ELSEIF(APPLE)
+     CONFIGURE_FILE("${PROJECT_SOURCE_DIR}/scripts/install_macosx/embree-vars.sh" embree-vars.sh @ONLY)
+     CONFIGURE_FILE("${PROJECT_SOURCE_DIR}/scripts/install_macosx/embree-vars.csh" embree-vars.csh @ONLY)
+-    INSTALL(FILES "${PROJECT_BINARY_DIR}/embree-vars.sh" DESTINATION "." COMPONENT lib)
+-    INSTALL(FILES "${PROJECT_BINARY_DIR}/embree-vars.csh" DESTINATION "." COMPONENT lib)
++    INSTALL(FILES "${PROJECT_BINARY_DIR}/embree-vars.sh" DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT lib)
++    INSTALL(FILES "${PROJECT_BINARY_DIR}/embree-vars.csh" DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT lib)
+   ELSE()
+     CONFIGURE_FILE("${PROJECT_SOURCE_DIR}/scripts/install_linux/embree-vars.sh" embree-vars.sh @ONLY)
+     CONFIGURE_FILE("${PROJECT_SOURCE_DIR}/scripts/install_linux/embree-vars.csh" embree-vars.csh @ONLY)
+-    INSTALL(FILES "${PROJECT_BINARY_DIR}/embree-vars.sh" DESTINATION "." COMPONENT lib)
+-    INSTALL(FILES "${PROJECT_BINARY_DIR}/embree-vars.csh" DESTINATION "." COMPONENT lib)
++    INSTALL(FILES "${PROJECT_BINARY_DIR}/embree-vars.sh" DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT lib)
++    INSTALL(FILES "${PROJECT_BINARY_DIR}/embree-vars.csh" DESTINATION "${CMAKE_INSTALL_LIBDIR}" COMPONENT lib)
+   ENDIF()
+ ENDIF()
+ 
+@@ -348,4 +348,4 @@ add_custom_target(
+   COMMAND cd ${PROJECT_SOURCE_DIR}/tests/integration/test_embree_release && ${CMAKE_COMMAND} -B build --preset ${EMBREE_TESTING_INTEGRATION_PRESET} -Dembree_DIR="${CMAKE_CURRENT_BINARY_DIR}/embree_install/lib/cmake/embree-${EMBREE_VERSION}"
+   COMMAND cd ${PROJECT_SOURCE_DIR}/tests/integration/test_embree_release && ${CMAKE_COMMAND} --build build --config Release
+   COMMAND cd ${PROJECT_SOURCE_DIR}/tests/integration/test_embree_release && ${INTEGRATE_BINARY}
+-)
+\ No newline at end of file
++)
