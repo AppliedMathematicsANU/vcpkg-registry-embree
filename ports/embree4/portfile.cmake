@@ -17,11 +17,11 @@ string(COMPARE EQUAL ${VCPKG_CRT_LINKAGE} static EMBREE_STATIC_RUNTIME)
 
 vcpkg_check_features(OUT_FEATURE_OPTIONS FEATURE_OPTIONS
     FEATURES
-        backface-culling      EMBREE_BACKFACE_CULLING 
-        compact-polys         EMBREE_COMPACT_POLYS   
-        filter-function       EMBREE_FILTER_FUNCTION  
-        ray-mask              EMBREE_RAY_MASK 
-        ray-packets           EMBREE_RAY_PACKETS 
+        backface-culling      EMBREE_BACKFACE_CULLING
+        compact-polys         EMBREE_COMPACT_POLYS
+        filter-function       EMBREE_FILTER_FUNCTION
+        ray-mask              EMBREE_RAY_MASK
+        ray-packets           EMBREE_RAY_PACKETS
 
         geometry-triangle     EMBREE_GEOMETRY_TRIANGLE
         geometry-quad         EMBREE_GEOMETRY_QUAD
@@ -94,7 +94,7 @@ vcpkg_cmake_config_fixup(CONFIG_PATH lib/cmake/embree-${VERSION} PACKAGE_NAME em
 set(config_file "${CURRENT_PACKAGES_DIR}/share/embree/embree-config.cmake")
 # Fix details in config.
 file(READ "${config_file}" contents)
-string(REPLACE "SET(EMBREE_BUILD_TYPE Release)" "" contents "${contents}")
+# string(REPLACE "SET(EMBREE_BUILD_TYPE Release)" "" contents "${contents}")
 string(REPLACE "/../../../" "/../../" contents "${contents}")
 string(REPLACE "FIND_PACKAGE" "include(CMakeFindDependencyMacro)\n  find_dependency" contents "${contents}")
 string(REPLACE "REQUIRED" "COMPONENTS" contents "${contents}")
